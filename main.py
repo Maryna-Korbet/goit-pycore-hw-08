@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, date
 from address_book import AddressBook
 from record import Record
 from fields import DATE_FORMAT
+from data_pickle import data_pickle
 
 def input_error(func):
     def inner(*args, **kwargs):
@@ -136,7 +137,7 @@ def birthdays(book: AddressBook):
 
 def main():
     print("Welcome to the assistant bot!")
-    book = AddressBook()
+    book = data_pickle.load_data()
 
 # test
     """ print('Add contact')
@@ -220,6 +221,7 @@ def main():
         command, *args = parse_input(user_input)
 
         if command in ["close", "exit"]:
+            data_pickle.save_data(book)
             print("Good bye!")
             break
         elif command == 'hello':
